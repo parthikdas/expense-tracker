@@ -40,17 +40,33 @@ const Home = (props) => {
             }
          }
     }
+    function deleteRecord(id){ // To delete record
+        fetch(api+'/'+id,{
+            method: 'DELETE'
+        }).then(response => console.log(response))
+        flag = true
+        transactionHistory()
+    }
     function transactionHistory(){ // to show transaction history
-        if(flag) {
-            document.querySelectorAll('.box-box').forEach(e => e.remove());
+        if(flag === true) {
+            document.querySelectorAll('.main-box-box').forEach(e => e.remove());
             fetch(api, { method: 'GET' }).then(response => response.json()).then(data => {
                 for(let i=0;i<data.length;i++){
+                    let div = document.createElement('div')
+                    div.className = 'main-box-box'
                     let divs = document.createElement('div')
+                    div.appendChild(divs)
                     divs.innerHTML = data[i]['reason'] + " : " + data[i]['amount']
                     divs.style.color = data[i]['type'] === 'income' ? "rgb(85, 170, 1)" : "rgba(220, 20, 60, 1)"
                     divs.style.borderLeft = data[i]['type'] === 'income' ? ".2rem solid rgb(85, 170, 1)" : ".2rem solid rgba(220, 20, 60, 1)"
                     divs.className += 'box-box'
-                    document.getElementById('box').append(divs)
+                    let bin = document.createElement('div')
+                    bin.innerHTML = 'DELETE'
+                    bin.style.color = 'crimson'
+                    div.appendChild(bin)
+                    bin.id = data[i]['_id']
+                    bin.onClick = deleteRecord(data[i]['_id'])
+                    document.getElementById('box').append(div)
                 }
             })
             flag=false
@@ -70,7 +86,7 @@ const Home = (props) => {
         })
     }
     return (
-        <div className="container" style={{backgroundColor : props.mode === 'light'? 'rgba(248,249,250,1)': '#042743', color : props.mode === 'light'? 'black': 'white'}}>
+        <div className="container" style={{backgroundColor : props.mode === 'light'? 'rgba(248,249,250,.9)': '#042743', color : props.mode === 'light'? 'black': 'white'}}>
             <div className="show-container" onLoad={showValues()}>
                     {/* Overview part */}
                     <div> {/* Remove div later*/}
@@ -82,14 +98,14 @@ const Home = (props) => {
                             </button>
                     </div>
                     <div className="collapse" id="collapseExample">
-                    <div className="card card-body">
+                    <div className={`card card-body  bg-${props.mode === 'light'? 'white' : 'dark'}`}>
                         <label htmlFor="basic-url">Reason</label>
                         <div className="input-group">
-                        <input className="form-control" aria-label="With textarea" type="text" id="reason" placeholder="Food"/>
+                        <input className={`form-control bg-${props.mode === 'light'? 'white' : 'dark text-white'}`} aria-label="With textarea" type="text" id="reason" placeholder="Food"/>
                         </div>
                         <label htmlFor="basic-url"  className="my-3">Amount</label>
                         <div className="input-group mb-1">
-                            <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)" id="amount" placeholder="-100"/>
+                            <input type="text" className={`form-control bg-${props.mode === 'light'? 'white' : 'dark text-white'}`} aria-label="Amount (to the nearest dollar)" id="amount" placeholder="-100"/>
                         </div>
                         <button type="submit" className="btn btn-outline-primary my-3" onClick={create}>Add</button>
                     </div>

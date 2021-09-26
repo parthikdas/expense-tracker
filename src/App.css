@@ -31,6 +31,11 @@
   background-color: rgba(220, 20, 60, 0.226);
   color: crimson;
 }
+.main-box-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .box-box {
   height: 3rem;
   padding: .5rem;
