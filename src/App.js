@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import { useState } from 'react'
 
-let api = 'https://crudcrud.com/api/db1d85047f18424f97c8e05ed6645987/tracker'
+let api = 'https://crudcrud.com/api/caa6c65c8147403096fc29a778f87ca2/tracker'
 
 function App() {
   const [mode, setMode] = useState("light") // for mode
