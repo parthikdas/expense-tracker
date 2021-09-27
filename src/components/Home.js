@@ -40,13 +40,15 @@ const Home = (props) => {
             }
          }
     }
-    function deleteRecord(id){ // To delete record
-        fetch(api+'/'+id,{
-            method: 'DELETE'
-        }).then(response => console.log(response))
-        flag = true
-        transactionHistory()
-    }
+    // function deleteRecord(id){ // To delete record
+    //     fetch(api+'/'+id,{
+    //         method: 'DELETE'
+    //     }).then(response => console.log(response))
+    //     flag = true
+    //     transactionHistory()
+    //     showValues()
+    //     return
+    // }
     function transactionHistory(){ // to show transaction history
         if(flag === true) {
             document.querySelectorAll('.main-box-box').forEach(e => e.remove());
@@ -60,12 +62,12 @@ const Home = (props) => {
                     divs.style.color = data[i]['type'] === 'income' ? "rgb(85, 170, 1)" : "rgba(220, 20, 60, 1)"
                     divs.style.borderLeft = data[i]['type'] === 'income' ? ".2rem solid rgb(85, 170, 1)" : ".2rem solid rgba(220, 20, 60, 1)"
                     divs.className += 'box-box'
-                    let bin = document.createElement('div')
-                    bin.innerHTML = 'DELETE'
-                    bin.style.color = 'crimson'
-                    div.appendChild(bin)
-                    bin.id = data[i]['_id']
-                    bin.onClick = deleteRecord(data[i]['_id'])
+                    // let bin = document.createElement('div')
+                    // bin.innerHTML = 'DELETE'
+                    // bin.style= 'color: crimson;border:1px solid red;cursor:pointer;'
+                    // div.appendChild(bin)
+                    // bin.id = data[i]['_id']
+                    // bin.onClick = deleteRecord(bin.id)
                     document.getElementById('box').append(div)
                 }
             })
